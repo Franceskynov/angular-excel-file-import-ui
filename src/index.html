@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AngularExcelFileImport</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    .page-loading {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      overflow: hidden;
+      background-color: #F5F7FA;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      z-index: -1;
+    }
+    .loading-icon {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 38px;
+      height: 38px;
+      margin-left: -19px;
+      margin-top: -19px;
+    }
+    app-root:empty ~ .page-loading {
+      opacity: 1;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+<app-root></app-root>
+  <div class="page-loading">
+      <img src="/assets/img/loading.svg" alt="loading" class="loading-icon" >
+  </div>
+</body>
+</html>

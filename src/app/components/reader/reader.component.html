@@ -1,0 +1,94 @@
+<section class="jumbotron text-center">
+    <div class="container">
+        <app-upload (upload)="upload($event)"></app-upload>
+    </div>
+</section>
+
+<div class="row justify-content-center mb-3">
+    <div class="md-auto">
+        <div class="btn-group btn-group-toggle" ngbRadioGroup [(ngModel)]="viewOptions" ngbTooltip="Scroll between options">
+            <label ngbButtonLabel class="btn-outline-primary btn-sm">
+                <input ngbButton type="radio" [value]="true" [disabled]="enbld">Records
+            </label>
+            <label ngbButtonLabel class="btn-outline-primary btn-sm" >
+                <input ngbButton type="radio" [value]="false" [disabled]="enbld">File info
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mb-3">
+    <div class="md-auto">
+        <div class="row justify-content-center mb-3">
+            <div class="md-auto">
+                <button class="btn btn-outline-secondary fa fa-eraser" ngbTooltip="Clean" (click)="reset()" ></button>
+                <button class="btn btn-outline-secondary fa fa-print ml-2" ngbTooltip="Print" (click)="print(tableContent)" ></button>        
+                <button class="btn btn-outline-primary fa fa-save ml-2" ngbTooltip="Save" (click)="save()" [disabled]="enbld"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="album text-muted" #tableContent id="tableContent">
+    <div class="container">
+        <div *ngIf="viewOptions == true">
+            <div class="row">
+                <table class="table table-striped text-center" id="data">
+                    <thead>
+                        <tr *ngFor="let row of files.data let i = index">
+                            <ng-container *ngIf=" i == 0 ">
+                                <th>#</th>
+                                <th *ngFor="let val of row let j = index" class="text-center">
+                                {{ val }}
+                                </th>
+                            </ng-container>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of files.data let i = index">
+                            <td *ngIf="i!=0"> {{ i }} </td>
+                            <td *ngFor="let val of row let j = index">
+                                <span *ngIf="i > 0">
+                                    {{ val }}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div *ngIf="viewOptions == false">
+            <div class="row">
+                <table class="table table-striped text-center" id="fileInfo">
+                    <thead>
+                    <tr>
+                        <th class="text-center" colspan="2">Details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Name:</td>
+                        <td> {{ files.fileInfo.name }} </td>
+                    </tr>
+                    <tr>
+                        <td>Size: </td>
+                        <td> {{ files.fileInfo.size }} </td>
+                    </tr>
+                    <tr>
+                        <td>Modification date:</td>
+                        <td> {{ files.fileInfo.lastModifiedDate }}  </td>
+                    </tr>
+                    <tr>
+                        <td>Mimetype:</td>
+                        <td> {{ files.fileInfo.type }} </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--code>
+    {{ files.data | json }}
+</code-->
