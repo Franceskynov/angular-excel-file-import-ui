@@ -81,7 +81,7 @@ export class UploadComponent implements OnInit {
   }
 
   public onFileChange(evt: any, input: any) {
-      console.log(input.files);
+      //console.log(input.files);
       if (input.files.length > 0) {
 
           this.filename = input.files[0].name;
@@ -107,7 +107,7 @@ export class UploadComponent implements OnInit {
 
               /* save data */
               this.data = <AOA>(XLSX.utils.sheet_to_json(ws, {header: 1}));
-              console.log(<AOA>(XLSX.utils.sheet_to_json(ws)))
+              //console.log(<AOA>(XLSX.utils.sheet_to_json(ws)))
           };
           reader.readAsBinaryString(target.files[0]);
           // console.log(this.data);

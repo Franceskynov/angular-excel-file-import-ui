@@ -50,8 +50,22 @@ export class ReaderComponent implements OnInit {
      if ( content ) {
       this.toaster.success(environment.MESSAGES.UPLOAD_SUCCESS, 'OK');
       this.files = content;
-      console.log(this.prepare(content.data));
+      console.log('prepare', this.prepare(content.data));
+  
      }
+  }
+
+  public lomtik (data, position) {
+      
+    var s = []
+    for (var i = 0; i < data.length; i++) {
+        
+      if (typeof data[i][position] != 'undefined') {
+        s.push(data[i][position])    
+      }
+    }
+    
+    return s
   }
 
   /**
@@ -59,29 +73,18 @@ export class ReaderComponent implements OnInit {
    * @param data 
    */
   public prepare(data): any {
-    _.object = (list, values) => {
-      if (list == null) return {};
-      var result = {};
-      for (var i = 0, l = list.length; i < l; i++) {
-        if (values) {
-          result[list[i]] = values[i];
-        } else {
-          result[list[i][0]] = list[i][1];
-        }
-      }
-      return result;
-    };
 
-    data.forEach((element, i) => { if (i == 0 ) this.titles.push(element) });
     data.forEach((element, j) => { if (j > 0 ) this.contents.push(element) });
-    this.titles.forEach((element, i) => {
-      this.finalData.push({
-        title:element,
-        content: _.object(element, this.contents)
-      })
-    });
+    data.forEach((element, i) => { if (i == 0 ) this.titles.push(...element) });
+    let tmp = []
+    this.titles.forEach((e, i) => {
+      tmp.push(this.lomtik(this.contents, i))
+    })
 
-    return this.finalData;
+    return {
+      columnNames: this.titles,
+      rows: tmp
+    }
   }
 
   /**
