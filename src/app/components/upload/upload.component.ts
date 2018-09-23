@@ -38,23 +38,6 @@ export class UploadComponent implements OnInit {
   ngOnInit() {
   }
 
-  public fileChange(evt: any, input: any): void {
-      this.isShowTextFromFile = false;
-      this.textFromFile = '';
-      const reader = new FileReader();
-      if (input.files.length) {
-
-          this.filename = input.files[0].name;
-          this.files = {
-              name: input.files[0].name,
-              size: humanize.filesize(input.files[0].size),
-              type: input.files[0].type,
-              lastModifiedDate: input.files[0].lastModifiedDate
-
-          };
-      }
-  }
-
   public removeFile(): void {
       this.filename = '';
       this.textFromFile = '';
@@ -70,6 +53,8 @@ export class UploadComponent implements OnInit {
           fileInfo: this.files,
           data: this.data
       });
+
+       //this.data = [ [1, 2], [3, 4] ];
   }
 
   public fileNfo(file): any {

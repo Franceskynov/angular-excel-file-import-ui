@@ -5,7 +5,6 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import * as _ from 'underscore';
 import * as printJS from 'print-js';
 import { StorageService } from '../../services/storage.service';
 import { environment } from '../../../environments/environment';
@@ -46,12 +45,16 @@ export class ReaderComponent implements OnInit {
    * @param content 
    */
   public upload(content): void {
+
+    this.reset();
+    //console.log('content', content)
     this.enbld = false;
      if ( content ) {
       this.toaster.success(environment.MESSAGES.UPLOAD_SUCCESS, 'OK');
       this.files = content;
-      console.log('prepare', this.prepare(content.data));
-  
+      
+      this.finalData = this.prepare(content.data)
+      console.log('prepare', this.finalData);
      }
   }
 
@@ -106,8 +109,11 @@ export class ReaderComponent implements OnInit {
    * 
    */
   public reset(): void {
-    this.enbld = true;
-    this.files.data = [];
+    this.enbld     = true;
+    this.files     = [];
+    this.contents  = [];
+    this.titles    = [];
+    this.finalData = [];
   }
   
   /**
